@@ -14,7 +14,13 @@ export default function SearchResultsScreen() {
   const [cartIds, setCartIds] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // TODO 4: Add the loading useEffect from Step 4.
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 900);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // TODO 5: Complete the filtered product list from Step 5.
   const visibleProducts = products;
@@ -30,11 +36,26 @@ export default function SearchResultsScreen() {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <MarketplaceHeader query={query} setQuery={setQuery} cartCount={cartIds.length} />
+      <MarketplaceHeader
+        query={query}
+        setQuery={setQuery}
+        cartCount={cartIds.length}
+      />
+
       {/* TODO 8: Replace this section with the loading/FlatList code from Step 8. */}
       <SearchTools resultCount={products.length} />
+
       <BottomNavigation cartCount={cartIds.length} />
     </SafeAreaView>
   );
 }
-const styles=StyleSheet.create({screen:{backgroundColor:colors.background,flex:1},emptyList:{flexGrow:1}});
+
+const styles = StyleSheet.create({
+  screen: {
+    backgroundColor: colors.background,
+    flex: 1,
+  },
+  emptyList: {
+    flexGrow: 1,
+  },
+});
