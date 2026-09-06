@@ -22,8 +22,17 @@ export default function SearchResultsScreen() {
     return () => clearTimeout(timer);
   }, []);
 
-  // TODO 5: Complete the filtered product list from Step 5.
-  const visibleProducts = products;
+  const visibleProducts = useMemo(() => {
+    const clean = query.trim().toLowerCase();
+
+    if (!clean) {
+      return products;
+    }
+
+    return products.filter((product) =>
+      product.name.toLowerCase().includes(clean)
+    );
+  }, [query]);
 
   function handleAddToCart(id) {
     // TODO 6: Update cartIds using the code from Step 6.
